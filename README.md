@@ -12,6 +12,7 @@ So these are the kyebinding list:
 | `hyper`+`k` | Focus Emacs |
 | `hyper`+`l` | Focus Terminal.app |
 | `hyper`+`u` | Focus [Dash](https://kapeli.com/dash) |
+| `hyper`+`h` | Show window hints |
 
 
 ### Layouts

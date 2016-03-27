@@ -115,10 +115,10 @@ hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
 hs.hotkey.bind(hyper, "H", hs.hints.windowHints)
 
 -- Size binding
-hs.hotkey.bind(hyper, "A", function() setCurrent(left)          end)
-hs.hotkey.bind(hyper, "S", function() setCurrent(middle)        end)
-hs.hotkey.bind(hyper, "D", function() setCurrent(right)         end)
-hs.hotkey.bind(hyper, "C", function() setCurrent(center)        end)
+hs.hotkey.bind(hyper, "A", function() setCurrent(left) end)
+hs.hotkey.bind(hyper, "S", function() setCurrent(middle) end)
+hs.hotkey.bind(hyper, "D", function() setCurrent(right) end)
+hs.hotkey.bind(hyper, "C", function() setCurrent(center) end)
 hs.hotkey.bind(hyper, "V", function() setCurrent(hipsterCenter) end)
 
 hs.hotkey.bind(hyper, "T", itunes)
@@ -127,9 +127,9 @@ hs.hotkey.bind(hyper, "2", sendToTv)
 
 -- Focus binding
 hs.hotkey.bind(hyper, "J", function() focus("Google Chrome") end)
-hs.hotkey.bind(hyper, "K", function() focus("Emacs")         end)
-hs.hotkey.bind(hyper, "L", function() focus("Terminal")      end)
-hs.hotkey.bind(hyper, "U", function() focus("Dash")          end)
+hs.hotkey.bind(hyper, "K", function() focus("Emacs") end)
+hs.hotkey.bind(hyper, "L", function() focus("Terminal") end)
+hs.hotkey.bind(hyper, "U", function() focus("Dash") end)
 
 -- Automaticy apply size and position for these apps
 local filter = hs.window.filter
