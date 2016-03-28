@@ -43,8 +43,8 @@ function center(screen)
   -- move the current window to the center of the screen
   local window = hs.window.focusedWindow():frame()
   return hs.geometry({
-      x = (screen.w - window.w) / 2,
-      y = (screen.h - window.h) / 2,
+      x = screen.x + (screen.w - window.w) / 2,
+      y = screen.y + (screen.h - window.h) / 2,
       w = window.w,
       h = window.h
   })
@@ -54,8 +54,8 @@ function hipsterCenter(screen)
   -- move the focused window to the top 25% of screen height and horizontal center
   local window = hs.window.focusedWindow():frame()
   return hs.geometry({
-      x = (screen.w - window.w) / 2,
-      y = (screen.h - window.h) / 4,
+      x = screen.x + (screen.w - window.w) / 2,
+      y = screen.y + (screen.h - window.h) / 4,
       w = window.w,
       h = window.h
   })
