@@ -93,9 +93,9 @@ function itunes()
 end
 
 function sendToScreen(screenNum, fn)
-  local screen = hs.screen.allScreens()[screenNum]
+  local screen = hs.screen.allScreens()[screenNum]:frame()
 
-  hs.window.focusedWindow():moveToScreen(screen)
+  hs.window.focusedWindow():setFrame(fn(screen))
 end
 
 function sendToMainScreen()
