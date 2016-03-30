@@ -104,7 +104,7 @@ function focusChrome()
     end
   end
 
-  if activeWindows[1] == focusedWindow then
+  if #activeWindows > 1 and activeWindows[1] == focusedWindow then
     activeWindows[2]:focus()
   else
     activeWindows[1]:focus()
