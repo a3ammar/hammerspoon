@@ -156,13 +156,17 @@ local filter = hs.window.filter
 filter.new("Emacs"):subscribe(
   hs.window.filter.windowCreated,
   function(window, name, event)
-    window:setFrame(right)
+    local screen = window:screen():frame()
+
+    window:setFrame(right(screen))
 end)
 
 filter.new("Terminal"):subscribe(
   hs.window.filter.windowCreated,
   function(window, name, event)
+    local screen = window:screen():frame()
+
     if window:title() == "λ" then
-      window:setFrame(right)
+      window:setFrame(right(screen))
     end
 end)
