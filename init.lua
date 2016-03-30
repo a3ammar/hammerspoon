@@ -70,15 +70,6 @@ function setCurrent(fn, windowFrame)
   window:setFrame(fn(windowFrame))
 end
 
-function focus(appName)
-  -- Focus the app in `appName`
-  local app = hs.application.find(appName)
-
-  if app then
-    app:mainWindow():focus()
-  end
-end
-
 function itunes()
   -- Set the size of itunes MiniPlayer
   local screen = hs.screen.primaryScreen():frame()
@@ -90,6 +81,34 @@ function itunes()
   })
 
   hs.application.find("itunes"):findWindow("miniplayer"):setFrame(size)
+end
+
+function focus(appName)
+  -- Focus the app in `appName`
+  local app = hs.application.find(appName)
+
+  if app then
+    app:mainWindow():focus()
+  end
+end
+
+function focusChrome()
+  local focusedWindow = hs.window.focusedWindow()
+  local chrome = hs.application.find("Google")
+  local windows = chrome and chrome:allWindows()
+  local activeWindows = {}
+
+  for _, window in pairs(windows) do
+    if window and window:title() ~= "" then
+      table.insert(activeWindows, window)
+    end
+  end
+
+  if activeWindows[1] == focusedWindow then
+    activeWindows[2]:focus()
+  else
+    activeWindows[1]:focus()
+  end
 end
 
 function sendToScreen(screenNum, fn)
@@ -126,7 +145,7 @@ hs.hotkey.bind(hyper, "1", sendToMainScreen)
 hs.hotkey.bind(hyper, "2", sendToTv)
 
 -- Focus binding
-hs.hotkey.bind(hyper, "J", function() focus("Google Chrome") end)
+hs.hotkey.bind(hyper, "J", focusChrome)
 hs.hotkey.bind(hyper, "K", function() focus("Emacs") end)
 hs.hotkey.bind(hyper, "L", function() focus("Terminal") end)
 hs.hotkey.bind(hyper, "U", function() focus("Dash") end)
