@@ -18,8 +18,8 @@ function left(screen)
 end
 
 function middle(screen)
-  -- This is a main big window with 100px empty spaces at the endges. Mainly used for
-  -- the main browser.
+  -- This is a main big window with 100px empty spaces at the left and right edges.
+  -- Mainly used for the main browser.
   return hs.geometry({
       x = screen.x + 100,
       y = screen.y,
@@ -75,8 +75,8 @@ function setCurrent(fn, windowFrame)
   -- Set the size of the currently focused window according to `fn`
   -- `fn`: (right/middle/center/left etc)
   local window = hs.window.focusedWindow()
-
   windowFrame = windowFrame or window:screen():frame()
+
   window:setFrame(fn(windowFrame))
 end
 
