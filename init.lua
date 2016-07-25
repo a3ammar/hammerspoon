@@ -71,6 +71,16 @@ function finder(screen)
   })
 end
 
+function small(screen)
+  local window = hs.window.focusedWindow():frame()
+  return hs.geometry({
+      x = window.x,
+      y = window.y,
+      w = 600,
+      h = 500
+  })
+end
+
 function setCurrent(fn, windowFrame)
   -- Set the size of the currently focused window according to `fn`
   -- `fn`: (right/middle/center/left etc)
@@ -150,6 +160,7 @@ hs.hotkey.bind(hyper, "D", function() setCurrent(right) end)
 hs.hotkey.bind(hyper, "C", function() setCurrent(center) end)
 hs.hotkey.bind(hyper, "V", function() setCurrent(hipsterCenter) end)
 hs.hotkey.bind(hyper, "F", function() setCurrent(finder) end)
+hs.hotkey.bind(hyper, "R", function() setCurrent(small) end)
 
 hs.hotkey.bind(hyper, "T", itunes)
 hs.hotkey.bind(hyper, "1", sendToMainScreen)

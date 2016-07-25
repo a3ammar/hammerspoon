@@ -23,7 +23,8 @@ So these are the kyebinding list:
 | `hyper`+`s` | Set the current app to big window in the middle layout |
 | `hyper`+`d` | Set the current app to right layout (used for coding) |
 | `hyper`+`t` | Set the current app to iTunes MiniPlayer layout |
-| `hyper`+`f` | Set teh current app to be 600x620px |
+| `hyper`+`f` | Set the current app to be 600x620px |
+| `hyper`+`r` | Set the current app to be 600x500px |
 | `hyper`+`c` | Move the current app to the center |
 | `hyper`+`v` | Move the current app to horizontal center but 20% from top |
 
