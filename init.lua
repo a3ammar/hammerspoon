@@ -6,6 +6,29 @@ hs.window.animationDuration = 0.1
 local leftRatio = 0.55556
 local rightRatio = 0.44443
 
+-- Storage to remember the window size before changing
+local undo = {}
+
+function undo:push()
+  -- Push the current window initial configuration to `undo` table.
+  local window = hs.window.focusedWindow()
+
+  if window and not undo[window:id()] then
+    self[window:id()] = window:frame()
+  end
+end
+
+function undo:pop()
+  -- Set the current focused window the previous configuration (if any) and remove the
+  -- configuration from the `undo` table.
+  local window = hs.window.focusedWindow()
+
+  if window and self[window:id()] then
+    window:setFrame(self[window:id()])
+    self[window:id()] = nil
+  end
+end
+
 function left(screen)
   -- This is the left layout, it is bigger than the right layout in size. Used for
   -- browser and documentations and books.
@@ -87,6 +110,7 @@ function setCurrent(fn, windowFrame)
   local window = hs.window.focusedWindow()
   windowFrame = windowFrame or window:screen():frame()
 
+  undo:push()
   window:setFrame(fn(windowFrame))
 end
 
@@ -154,6 +178,7 @@ hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
 hs.hotkey.bind(hyper, "H", hs.hints.windowHints)
 
 -- Size binding
+hs.hotkey.bind(hyper, "Z", function() undo:pop() end)
 hs.hotkey.bind(hyper, "A", function() setCurrent(left) end)
 hs.hotkey.bind(hyper, "S", function() setCurrent(middle) end)
 hs.hotkey.bind(hyper, "D", function() setCurrent(right) end)
