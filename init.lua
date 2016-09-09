@@ -1,4 +1,4 @@
- -- Make animations faster (0.2 is the default value), set it to 0 to disable
+-- Make animations faster (0.2 is the default value), set it to 0 to disable
 hs.window.animationDuration = 0.1
 
 -- These are the ratio of my left window and right window sizes. I don't want half/half
