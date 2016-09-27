@@ -221,3 +221,25 @@ filter.new("Terminal"):subscribe(
       window:setFrame(right(screen))
     end
 end)
+
+-- Swap command and option keys in terminal
+local swapMeta = hs.eventtap.new(
+  { hs.eventtap.event.types.keyDown },
+  function(event)
+    local mods = event:getFlags()
+    local key = event:getCharacters()
+
+    if mods.cmd then
+      return false, { event:setFlags({ alt = true }) }
+    end
+end)
+
+filter.new("Terminal"):subscribe(
+  hs.window.filter.windowFocused,
+  function(window, name, event)
+    swapMeta:start()
+end):subscribe(
+  hs.window.filter.windowUnfocused,
+  function(window, name, event)
+    swapMeta:stop()
+end)
