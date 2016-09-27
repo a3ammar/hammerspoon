@@ -171,31 +171,35 @@ end
 
 -- I swaped capslock and control keys then used Seil and Karabinder to bind the capslock
 -- (which is in the position of the control key) as a hyper key
-local hyper = { "cmd", "alt", "ctrl", "shift" }
+local hyper = hs.hotkey.modal.new({}, "f15")
+
+function hyperBind(modifiers, key, fn)
+  hyper:bind(modifiers, key, fn, function() hyper:exit() end)
+end
 
 -- Window Hints
 hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
-hs.hotkey.bind(hyper, "H", hs.hints.windowHints)
+hyperBind({}, "H", hs.hints.windowHints)
 
 -- Size binding
-hs.hotkey.bind(hyper, "Z", function() undo:pop() end)
-hs.hotkey.bind(hyper, "A", function() setCurrent(left) end)
-hs.hotkey.bind(hyper, "S", function() setCurrent(middle) end)
-hs.hotkey.bind(hyper, "D", function() setCurrent(right) end)
-hs.hotkey.bind(hyper, "C", function() setCurrent(center) end)
-hs.hotkey.bind(hyper, "V", function() setCurrent(hipsterCenter) end)
-hs.hotkey.bind(hyper, "F", function() setCurrent(finder) end)
-hs.hotkey.bind(hyper, "R", function() setCurrent(small) end)
+hyperBind({}, "Z", function() undo:pop() end)
+hyperBind({}, "A", function() setCurrent(left) end)
+hyperBind({}, "S", function() setCurrent(middle) end)
+hyperBind({}, "D", function() setCurrent(right) end)
+hyperBind({}, "C", function() setCurrent(center) end)
+hyperBind({}, "V", function() setCurrent(hipsterCenter) end)
+hyperBind({}, "F", function() setCurrent(finder) end)
+hyperBind({}, "R", function() setCurrent(small) end)
 
-hs.hotkey.bind(hyper, "T", itunes)
-hs.hotkey.bind(hyper, "1", sendToMainScreen)
-hs.hotkey.bind(hyper, "2", sendToTv)
+hyperBind({}, "T", itunes)
+hyperBind({}, "1", sendToMainScreen)
+hyperBind({}, "2", sendToTv)
 
 -- Focus binding
-hs.hotkey.bind(hyper, "J", focusChrome)
-hs.hotkey.bind(hyper, "K", function() focus("Emacs") end)
-hs.hotkey.bind(hyper, "L", function() focus("Terminal") end)
-hs.hotkey.bind(hyper, "U", function() focus("Dash") end)
+hyperBind({}, "J", focusChrome)
+hyperBind({}, "K", function() focus("Emacs") end)
+hyperBind({}, "L", function() focus("Terminal") end)
+hyperBind({}, "U", function() focus("Dash") end)
 
 -- Automaticy apply size and position for these apps
 local filter = hs.window.filter
