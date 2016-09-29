@@ -222,14 +222,77 @@ filter.new("Terminal"):subscribe(
     end
 end)
 
+function equal(t1, t2)
+  if #t1 ~= #t2 then return false end
+
+  table.sort(t1)
+  table.sort(t2)
+
+  for i, _ in ipairs(t1) do
+    if t1[i] ~= t2[i] then
+      return false
+    end
+  end
+
+  return true
+end
+
+function isIgnoredKey(event)
+  local ignoredKeys = {
+    { "cmd", "tab" },
+    { "cmd", "space" },
+    { "alt", "space" },
+    { "cmd", "q" },
+    { "cmd", "c" },
+    { "cmd", "alt", "c" },
+    { "cmd", "shift", "c" },
+    { "cmd", "v" },
+    { "cmd", "," },
+    { "cmd", "w" },
+    { "cmd", "shift", "4" },
+    { "cmd", "shift", "3" },
+    { "cmd", "ctrl", "\\" }
+  }
+  local hotkey = {}
+
+  for modifier, _ in pairs(event:getFlags()) do
+    table.insert(hotkey, modifier)
+  end
+  table.insert(hotkey, hs.keycodes.map[event:getKeyCode()])
+
+  for _, ignoredKey in pairs(ignoredKeys) do
+    if equal(ignoredKey, hotkey) then
+      return true
+    end
+  end
+
+  return false
+end
+
 -- Swap command and option keys in terminal
 local swapMeta = hs.eventtap.new(
   { hs.eventtap.event.types.keyDown },
   function(event)
-    local mods = event:getFlags()
-    local key = event:getCharacters()
+    local modifiers = event:getFlags()
+    local key = hs.keycodes.map[event:getKeyCode()]
 
-    if mods.cmd then
+    if not modifiers.cmd and not modifiers.alt and not modifiers.ctrl and not modifiers.shift then
+      return false, {}
+    end
+
+    if isIgnoredKey(event) then
+      return false, {}
+    end
+
+    if modifiers.ctrl and key == "y" then
+      return true, { hs.eventtap.event.newKeyEvent({ "cmd" }, "v", true) }
+    end
+
+    if modifiers.alt then
+      return false, { event:setFlags({ cmd = true }) }
+    end
+
+    if modifiers.cmd then
       return false, { event:setFlags({ alt = true }) }
     end
 end)
