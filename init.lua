@@ -246,9 +246,7 @@ function isIgnoredKey(event)
     { "cmd", "c" },
     { "cmd", "alt", "c" },
     { "cmd", "shift", "c" },
-    { "cmd", "v" },
     { "cmd", "," },
-    { "cmd", "w" },
     { "cmd", "shift", "4" },
     { "cmd", "shift", "3" },
     { "cmd", "ctrl", "\\" }
