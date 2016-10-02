@@ -173,33 +173,33 @@ end
 -- (which is in the position of the control key) as a hyper key
 local hyper = hs.hotkey.modal.new({}, "f15")
 
-function hyperBind(modifiers, key, fn)
-  hyper:bind(modifiers, key, fn, function() hyper:exit() end)
+function hyperBind(key, fn)
+  hyper:bind({}, key, fn, function() hyper:exit() end)
 end
 
 -- Window Hints
 hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
-hyperBind({}, "H", hs.hints.windowHints)
+hyperBind("H", hs.hints.windowHints)
 
 -- Size binding
-hyperBind({}, "Z", function() undo:pop() end)
-hyperBind({}, "A", function() setCurrent(left) end)
-hyperBind({}, "S", function() setCurrent(middle) end)
-hyperBind({}, "D", function() setCurrent(right) end)
-hyperBind({}, "C", function() setCurrent(center) end)
-hyperBind({}, "V", function() setCurrent(hipsterCenter) end)
-hyperBind({}, "F", function() setCurrent(finder) end)
-hyperBind({}, "R", function() setCurrent(small) end)
+hyperBind("Z", function() undo:pop() end)
+hyperBind("A", function() setCurrent(left) end)
+hyperBind("S", function() setCurrent(middle) end)
+hyperBind("D", function() setCurrent(right) end)
+hyperBind("C", function() setCurrent(center) end)
+hyperBind("V", function() setCurrent(hipsterCenter) end)
+hyperBind("F", function() setCurrent(finder) end)
+hyperBind("R", function() setCurrent(small) end)
 
-hyperBind({}, "T", itunes)
-hyperBind({}, "1", sendToMainScreen)
-hyperBind({}, "2", sendToTv)
+hyperBind("T", itunes)
+hyperBind("1", sendToMainScreen)
+hyperBind("2", sendToTv)
 
 -- Focus binding
-hyperBind({}, "J", focusChrome)
-hyperBind({}, "K", function() focus("Emacs") end)
-hyperBind({}, "L", function() focus("Terminal") end)
-hyperBind({}, "U", function() focus("Dash") end)
+hyperBind("J", focusChrome)
+hyperBind("K", function() focus("Emacs") end)
+hyperBind("L", function() focus("Terminal") end)
+hyperBind("U", function() focus("Dash") end)
 
 -- Automaticy apply size and position for these apps
 local filter = hs.window.filter
