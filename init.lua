@@ -171,7 +171,7 @@ end
 
 -- I swaped capslock and control keys then used Seil and Karabinder to bind the capslock
 -- (which is in the position of the control key) as a hyper key
-local hyper = hs.hotkey.modal.new({}, "f15")
+local hyper = hs.hotkey.modal.new({}, "f19")
 
 function hyperBind(key, fn)
   hyper:bind({}, key, fn, function() hyper:exit() end)
