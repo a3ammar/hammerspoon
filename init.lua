@@ -256,6 +256,7 @@ function isIgnoredKey(event)
   for modifier, _ in pairs(event:getFlags()) do
     table.insert(hotkey, modifier)
   end
+
   table.insert(hotkey, hs.keycodes.map[event:getKeyCode()])
 
   for _, ignoredKey in pairs(ignoredKeys) do
@@ -279,19 +280,15 @@ local swapMeta = hs.eventtap.new(
     end
 
     if isIgnoredKey(event) then
-      return false, {}
-    end
-
-    if modifiers.ctrl and key == "y" then
-      return true, { hs.eventtap.event.newKeyEvent({ "cmd" }, "v", true) }
+      return true, {}
     end
 
     if modifiers.alt then
-      return false, { event:setFlags({ cmd = true }) }
+      return true, { event:setFlags({ cmd = true, alt = nil }) }
     end
 
     if modifiers.cmd then
-      return false, { event:setFlags({ alt = true }) }
+      return true, { event:setFlags({ alt = true, cmd = nil }) }
     end
 end)
 
