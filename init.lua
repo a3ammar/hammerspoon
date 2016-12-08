@@ -280,7 +280,7 @@ local swapMeta = hs.eventtap.new(
     end
 
     if isIgnoredKey(event) then
-      return true, {}
+      return false, {}
     end
 
     if modifiers.alt then
