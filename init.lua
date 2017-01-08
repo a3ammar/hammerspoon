@@ -273,7 +273,6 @@ local swapMeta = hs.eventtap.new(
   { hs.eventtap.event.types.keyDown },
   function(event)
     local modifiers = event:getFlags()
-    local key = hs.keycodes.map[event:getKeyCode()]
 
     if not modifiers.cmd and not modifiers.alt and not modifiers.ctrl and not modifiers.shift then
       return false, {}
