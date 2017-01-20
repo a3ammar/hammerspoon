@@ -171,11 +171,33 @@ end
 
 -- I swaped capslock and control keys then used Seil and Karabinder to bind the capslock
 -- (which is in the position of the control key) as a hyper key
-local hyper = hs.hotkey.modal.new({}, "f19")
+local hyper = hs.hotkey.modal.new({}, "f18")
 
 function hyperBind(key, fn)
-  hyper:bind({}, key, fn, function() hyper:exit() end)
+  hyper:bind({}, key, fn)
 end
+
+-- This makes modal keys are more like a modifier than a modal, its functionality are
+-- only available when it's pressed
+function hyper:entered()
+  hyper.active = true
+end
+
+function hyper:exited()
+  hyper.active = false
+end
+
+function onPress()
+  if not hyper.active then
+    hyper:enter()
+  end
+end
+
+function onRelease()
+  hyper:exit()
+end
+
+hs.hotkey.bind({}, "f19", onPress, onRelease, onPress)
 
 -- Window Hints
 hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
