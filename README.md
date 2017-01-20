@@ -1,37 +1,37 @@
 This is my [Hammerspoon](https://github.com/Hammerspoon/hammerspoon) configuration.
 
-I swapped my `caps lock` key with `ctrl` using OS X keyboard preferences, then used [Seil](https://pqrs.org/osx/karabiner/seil.html.en) to remap the `caps lock` key (which is now `ctrl` physical key) to `F19` (a key that doesn't exist on my keyboard but has a `keycode`)then used [Karabiner](https://pqrs.org/osx/karabiner/index.html.en) to transform `F19` into `ctrl`+`alt`+`cmd`+`shift` pressed together.
+I swapped my `caps lock` key with `ctrl` using OS X keyboard preferences, then used [Karabiner-Elements](https://github.com/tekezo/Karabiner-Elements) to make `caps lock` (which is the `ctrl` physical key) key to `F19` (a key that doesn't exist on my keyboard but has a `keycode`) then through hammerspoon I make a modal key that acts like a `hyper` key.
 
-So these are the kyebinding list:
+Keybinding List
 
-### Focus Application
-
-| Key | Description |
-|-----|-------------|
-| `hyper`+`j` | Focus Google Chrome |
-| `hyper`+`k` | Focus Emacs |
-| `hyper`+`l` | Focus Terminal.app |
-| `hyper`+`u` | Focus [Dash](https://kapeli.com/dash) |
-| `hyper`+`h` | Show window hints |
-
-
-### Layouts
+### Application Focus Keys
 
 | Key | Description |
 |-----|-------------|
-| `hyper`+`a` | Set the current app to left layout (used for browing) |
-| `hyper`+`s` | Set the current app to big window in the middle layout |
-| `hyper`+`d` | Set the current app to right layout (used for coding) |
-| `hyper`+`t` | Set the current app to iTunes MiniPlayer layout |
-| `hyper`+`f` | Set the current app to be 600x620px |
-| `hyper`+`r` | Set the current app to be 600x500px |
-| `hyper`+`c` | Move the current app to the center |
-| `hyper`+`v` | Move the current app to horizontal center but 20% from top |
+| `ctrl`+`j` | Focus Google Chrome |
+| `ctrl`+`k` | Focus Emacs |
+| `ctrl`+`l` | Focus Terminal.app |
+| `ctrl`+`u` | Focus [Dash](https://kapeli.com/dash) |
+| `ctrl`+`h` | Show window hints |
 
 
-### Move between displays
+### Layouts Keys
 
 | Key | Description |
 |-----|-------------|
-| `hyper`+`1` | Move to main display |
-| `hyper`+`2` | Move to the second display |
+| `ctrl`+`a` | Set the current app to left layout (used for browing) |
+| `ctrl`+`s` | Set the current app to big window in the middle layout |
+| `ctrl`+`d` | Set the current app to right layout (used for coding) |
+| `ctrl`+`t` | Set the current app to iTunes MiniPlayer layout |
+| `ctrl`+`f` | Set the current app to be 600x620px |
+| `ctrl`+`r` | Set the current app to be 600x500px |
+| `ctrl`+`c` | Move the current app to the center |
+| `ctrl`+`v` | Move the current app to horizontal center but 20% from top |
+| `ctrl`+`z` | Undo |
+
+### Movement Between Displays Keys
+
+| Key | Description |
+|-----|-------------|
+| `ctrl`+`1` | Move to main display |
+| `ctrl`+`2` | Move to the second display |
