@@ -201,7 +201,7 @@ hs.hotkey.bind({}, "f19", onPress, onRelease, onPress)
 
 -- Window Hints
 hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
-hyperBind("H", function() hyper:exit(); hs.hints.windowHints() end)
+hyperBind("H", hs.hints.windowHints)
 
 -- Size binding
 hyperBind("Z", function() undo:pop() end)
