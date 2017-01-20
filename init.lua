@@ -179,7 +179,7 @@ end
 
 -- Window Hints
 hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
-hyperBind("H", hs.hints.windowHints)
+hyperBind("H", function() hyper:exit(); hs.hints.windowHints() end)
 
 -- Size binding
 hyperBind("Z", function() undo:pop() end)
