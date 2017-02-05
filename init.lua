@@ -118,10 +118,10 @@ function itunes()
   -- Set the size of itunes MiniPlayer
   local screen = hs.screen.primaryScreen():frame()
   local size = hs.geometry({
-      x = screen.x + 35,
-      y = screen.y + 35,
+      x = screen.x + 38,
+      y = screen.y + 38,
       w = 400,
-      h = screen.h - 60
+      h = screen.h - 64
   })
 
   hs.application.find("itunes"):findWindow("miniplayer"):setFrame(size)
