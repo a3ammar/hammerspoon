@@ -12,6 +12,8 @@ Keybinding List
 | `ctrl`+`k` | Focus Emacs |
 | `ctrl`+`l` | Focus Terminal.app |
 | `ctrl`+`u` | Focus [Dash](https://kapeli.com/dash) |
+| `crtl`+`8` | Set the current window to `ctrl`+`i` |
+| `ctrl`+`i` | Focus the window set by `ctrl`+`8` |
 | `ctrl`+`h` | Show window hints |
 
 

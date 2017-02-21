@@ -203,6 +203,21 @@ hs.hotkey.bind({}, "f19", onPress, onRelease, onPress)
 hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
 hyperBind("H", hs.hints.windowHints)
 
+-- Bindable key
+hyperBind("8", function ()
+  local window = hs.window.focusedWindow()
+
+  if window then
+    hyper.bindableApp = window
+  end
+end)
+
+hyperBind("I", function ()
+  if hyper.bindableApp then
+    hyper.bindableApp:focus()
+  end
+end)
+
 -- Size binding
 hyperBind("Z", function() undo:pop() end)
 hyperBind("A", function() setCurrent(left) end)
