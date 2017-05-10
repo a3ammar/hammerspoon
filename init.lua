@@ -139,7 +139,7 @@ function focus(appName)
 
   if windows then
     for _, window in ipairs(windows) do
-      if window ~= hyper.bindableApp then
+      if window ~= hyper.bindableWindow then
         window:focus()
         break
       end
@@ -216,13 +216,13 @@ hyperBind("8", function ()
   local window = hs.window.focusedWindow()
 
   if window then
-    hyper.bindableApp = window
+    hyper.bindableWindow = window
   end
 end)
 
 hyperBind("I", function ()
-  if hyper.bindableApp then
-    hyper.bindableApp:focus()
+  if hyper.bindableWindow then
+    hyper.bindableWindow:focus()
   end
 end)
 
