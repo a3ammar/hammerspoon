@@ -267,6 +267,16 @@ filter.new("Terminal"):subscribe(
     end
 end)
 
+filter.new("iTunes"):subscribe(
+  hs.window.filter.windowCreated,
+  function(window, name, event)
+    local screen = window:screen():frame()
+
+    if window:title() == "MiniPlayer" then
+      itunes()
+    end
+end)
+
 function equal(t1, t2)
   if #t1 ~= #t2 then return false end
 
