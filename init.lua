@@ -9,6 +9,11 @@ local rightRatio = 0.44443
 -- Storage to remember the window size before changing
 local undo = {}
 
+-- I swaped capslock and control keys then used Seil and Karabinder to bind the capslock
+-- (which is in the position of the control key) as a hyper key
+local hyper = hs.hotkey.modal.new({}, "f18")
+
+
 function undo:push()
   -- Push the current window initial configuration to `undo` table.
   local window = hs.window.focusedWindow()
@@ -169,10 +174,7 @@ function sendToTv()
   sendToScreen(2, center)
 end
 
--- I swaped capslock and control keys then used Seil and Karabinder to bind the capslock
--- (which is in the position of the control key) as a hyper key
-local hyper = hs.hotkey.modal.new({}, "f18")
-
+-- Hyper settings
 function hyperBind(key, fn)
   hyper:bind({}, key, fn)
 end
