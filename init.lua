@@ -135,9 +135,15 @@ end
 function focus(appName)
   -- Focus the app in `appName`
   local app = hs.application.find(appName)
+  local windows = app:allWindows()
 
-  if app then
-    app:mainWindow():focus()
+  if windows then
+    for _, window in ipairs(windows) do
+      if window ~= hyper.bindableApp then
+        window:focus()
+        break
+      end
+    end
   end
 end
 
