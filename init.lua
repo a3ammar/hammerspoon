@@ -34,6 +34,12 @@ function undo:pop()
   end
 end
 
+function isOnExternal()
+  local externalDisplay = "Thunderbolt Display"
+
+  return hs.window.focusedWindow():screen():name() == externalDisplay
+end
+
 function left(screen)
   -- This is the left layout, it is bigger than the right layout in size. Used for
   -- browser and documentations and books.
@@ -249,34 +255,37 @@ hyperBind("U", function() focus("Dash") end)
 -- Automaticy apply size and position for these apps
 local filter = hs.window.filter
 
-filter.new("Emacs"):subscribe(
-  hs.window.filter.windowCreated,
-  function(window, name, event)
-    local screen = window:screen():frame()
+if not isOnExternal() then
+  filter.new("Emacs"):subscribe(
+    hs.window.filter.windowCreated,
+    function(window, name, event)
+      local screen = window:screen():frame()
 
-    window:setFrame(right(screen))
-end)
-
-filter.new("Terminal"):subscribe(
-  hs.window.filter.windowCreated,
-  function(window, name, event)
-    local screen = window:screen():frame()
-
-    if window:title() == "λ" then
       window:setFrame(right(screen))
-    end
-end)
+    end)
 
-filter.new("iTunes"):subscribe(
-  hs.window.filter.windowCreated,
-  function(window, name, event)
-    local screen = window:screen():frame()
+  filter.new("Terminal"):subscribe(
+    hs.window.filter.windowCreated,
+    function(window, name, event)
+      local screen = window:screen():frame()
 
-    if window:title() == "MiniPlayer" then
-      itunes()
-    end
-end)
+      if window:title() == "λ" then
+        window:setFrame(right(screen))
+      end
+    end)
 
+  filter.new("iTunes"):subscribe(
+    hs.window.filter.windowCreated,
+    function(window, name, event)
+      local screen = window:screen():frame()
+
+      if window:title() == "MiniPlayer" then
+        itunes()
+      end
+    end)
+end
+
+-- Hyper key implementation
 function equal(t1, t2)
   if #t1 ~= #t2 then return false end
 
