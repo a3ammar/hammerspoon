@@ -115,6 +115,17 @@ function small(screen)
   })
 end
 
+function tall(screen)
+  local window = hs.window.focusedWindow():frame()
+
+  return hs.geometry({
+      x = window.x,
+      y = 45,
+      w = window.w,
+      h = screen.h - 40
+  })
+end
+
 function setCurrent(fn, windowFrame)
   -- Set the size of the currently focused window according to `fn`
   -- `fn`: (right/middle/center/left etc)
@@ -237,6 +248,7 @@ hyperBind("Z", function() undo:pop() end)
 hyperBind("A", function() setCurrent(left) end)
 hyperBind("S", function() setCurrent(middle) end)
 hyperBind("D", function() setCurrent(right) end)
+hyperBind("W", function() setCurrent(tall) end)
 hyperBind("C", function() setCurrent(center) end)
 hyperBind("V", function() setCurrent(hipsterCenter) end)
 hyperBind("F", function() setCurrent(finder) end)

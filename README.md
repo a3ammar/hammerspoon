@@ -24,6 +24,7 @@ Keybinding List
 | `ctrl`+`a` | Set the current app to left layout (used for browing) |
 | `ctrl`+`s` | Set the current app to big window in the middle layout |
 | `ctrl`+`d` | Set the current app to right layout (used for coding) |
+| `ctrl`+`w` | Set the current app to be as tall as possible while leaving 20px of padding area |
 | `ctrl`+`t` | Set the current app to iTunes MiniPlayer layout |
 | `ctrl`+`f` | Set the current app to be 600x620px |
 | `ctrl`+`r` | Set the current app to be 600x500px |
