@@ -264,6 +264,9 @@ hyperBind("K", function() focus("Emacs") end)
 hyperBind("L", function() focus("Terminal") end)
 hyperBind("U", function() focus("Dash") end)
 
+-- Misc binding
+hyperBind("delete", hs.caffeinate.startScreensaver)
+
 -- Automaticy apply size and position for these apps
 local filter = hs.window.filter
 

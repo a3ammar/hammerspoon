@@ -38,3 +38,9 @@ Keybinding List
 |-----|-------------|
 | `ctrl`+`1` | Move to main display |
 | `ctrl`+`2` | Move to the second display |
+
+### Miscellaneous Keys
+
+| key | Description |
+|-----|-------------|
+| `ctrl`+`backspace` | Start Screensaver |
