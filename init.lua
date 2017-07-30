@@ -41,14 +41,27 @@ function isOnExternal()
 end
 
 function left(screen)
-  -- This is the left layout, it is bigger than the right layout in size. Used for
-  -- browser and documentations and books.
-  return hs.geometry({
-      x = screen.x,
-      y = screen.y,
-      w = screen.w * leftRatio,
-      h = screen.h
-  })
+  -- This is the left layout, depending on the monitor name it can be is bigger than the
+  -- right layout in size. Used for browser and documentations and books.
+  local size
+
+  if isOnExternal() then
+    size = hs.geometry({
+        x = screen.x + 20,
+        y = screen.y + 20,
+        w = 1100,
+        h = screen.h - 40,
+    })
+  else
+    size = hs.geometry({
+        x = screen.x,
+        y = screen.y,
+        w = screen.w * leftRatio,
+        h = screen.h
+    })
+  end
+
+  return size
 end
 
 function middle(screen)
@@ -63,14 +76,27 @@ function middle(screen)
 end
 
 function right(screen)
-  -- This is the right layout, which is smaller than the left layout size. Used for
-  -- Emacs and terminal
-  return hs.geometry({
-      x = screen.x + screen.w * leftRatio,
-      y = screen.y,
-      w = screen.w * rightRatio,
-      h = screen.h
-  })
+  -- This is the right layout, which depending on the monitor name can be smaller than the
+  -- left layout size. Used for Emacs and terminal
+  local size
+
+  if isOnExternal() then
+    size = hs.geometry({
+        x = screen.x + screen.w - 1420,
+        y = screen.y + 20,
+        w = 1400,
+        h = screen.h - 40,
+    })
+  else
+    size = hs.geometry({
+        x = screen.x + screen.w * leftRatio,
+        y = screen.y,
+        w = screen.w * rightRatio,
+        h = screen.h
+    })
+  end
+
+  return size
 end
 
 function center(screen)
@@ -120,7 +146,7 @@ function tall(screen)
 
   return hs.geometry({
       x = window.x,
-      y = 45,
+      y = screen.y + 20,
       w = window.w,
       h = screen.h - 40
   })
