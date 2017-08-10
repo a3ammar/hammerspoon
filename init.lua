@@ -79,8 +79,16 @@ function right(screen)
   -- This is the right layout, which depending on the monitor name can be smaller than the
   -- left layout size. Used for Emacs and terminal
   local size
+  local application = hs.window.focusedWindow():application():name()
 
-  if isOnExternal() then
+  if isOnExternal() and application == "Terminal" then
+    size = hs.geometry({
+        x = screen.x + screen.w - 720,
+        y = screen.y + 20,
+        w = 700,
+        h = screen.h - 40,
+    })
+  elseif isOnExternal() then
     size = hs.geometry({
         x = screen.x + screen.w - 1420,
         y = screen.y + 20,
@@ -92,7 +100,7 @@ function right(screen)
         x = screen.x + screen.w * leftRatio,
         y = screen.y,
         w = screen.w * rightRatio,
-        h = screen.h
+        h = screen.h,
     })
   end
 
