@@ -37,7 +37,7 @@ end
 function isOnExternal()
   local externalDisplay = "Thunderbolt Display"
 
-  return hs.window.focusedWindow():screen():name() == externalDisplay
+  return hs.screen.mainScreen():name() == externalDisplay
 end
 
 function left(screen)
