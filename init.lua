@@ -67,12 +67,25 @@ end
 function middle(screen)
   -- This is a main big window with 100px empty spaces at the left and right edges.
   -- Mainly used for the main browser.
-  return hs.geometry({
+  local size
+
+  if isOnExternal() then
+    size = hs.geometry({
+        x = screen.x + 20,
+        y = screen.y + 20,
+        w = screen.w - 40,
+        h = screen.h - 40,
+    })
+  else
+    size = hs.geometry({
       x = screen.x + 100,
       y = screen.y,
       w = screen.w - 200,
-      h = screen.h
+      h = screen.h,
   })
+  end
+
+  return size
 end
 
 function right(screen)
