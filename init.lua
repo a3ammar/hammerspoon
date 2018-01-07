@@ -318,25 +318,26 @@ hs.hotkey.bind({}, "f20", hs.caffeinate.startScreensaver)
 -- Automaticy apply size and position for these apps
 local filter = hs.window.filter
 
-if not isOnExternal() then
-  filter.new("Emacs"):subscribe(
-    hs.window.filter.windowCreated,
-    function(window, name, event)
-      local screen = window:screen():frame()
+filter.new("Emacs"):subscribe(
+  hs.window.filter.windowCreated,
+  function(window, name, event)
+    local screen = window:screen():frame()
 
+
+    window:setFrame(right(screen))
+end)
+
+filter.new("Terminal"):subscribe(
+  hs.window.filter.windowCreated,
+  function(window, name, event)
+    local screen = window:screen():frame()
+
+    if window:title() == "λ" then
       window:setFrame(right(screen))
-    end)
+    end
+end)
 
-  filter.new("Terminal"):subscribe(
-    hs.window.filter.windowCreated,
-    function(window, name, event)
-      local screen = window:screen():frame()
-
-      if window:title() == "λ" then
-        window:setFrame(right(screen))
-      end
-    end)
-
+if not isOnExternal() then
   filter.new("iTunes"):subscribe(
     hs.window.filter.windowCreated,
     function(window, name, event)
@@ -345,8 +346,10 @@ if not isOnExternal() then
       if window:title() == "MiniPlayer" then
         itunes()
       end
-    end)
+  end)
 end
+
+
 
 -- Hyper key implementation
 function equal(t1, t2)
