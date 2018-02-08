@@ -91,33 +91,38 @@ end
 function right(screen)
   -- This is the right layout, which depending on the monitor name can be smaller than the
   -- left layout size. Used for Emacs and terminal
-  local size
-  local application = hs.window.focusedWindow():application():name()
-
-  if isOnExternal() and application == "Terminal" then
-    size = hs.geometry({
-        x = screen.x + screen.w - 720,
-        y = screen.y + 20,
-        w = 700,
-        h = screen.h - 40,
-    })
-  elseif isOnExternal() then
-    size = hs.geometry({
-        x = screen.x + screen.w - 1420,
-        y = screen.y + 20,
-        w = 1400,
-        h = screen.h - 40,
-    })
-  else
-    size = hs.geometry({
+  local regularSize = hs.geometry({
         x = screen.x + screen.w * leftRatio,
         y = screen.y,
         w = screen.w * rightRatio,
         h = screen.h,
     })
+  local externalSize = hs.geometry({
+        x = screen.x + screen.w - 1420,
+        y = screen.y + 20,
+        w = 1400,
+        h = screen.h - 40,
+    })
+  local terminalSize = hs.geometry({
+        x = screen.x + screen.w - 720,
+        y = screen.y + 20,
+        w = 700,
+        h = screen.h - 40,
+    })
+
+  if not isOnExternal() then
+    return regularSize
   end
 
-  return size
+  local window = hs.window.focusedWindow()
+  if window:application():name() == "Terminal" then
+    local currentSize = window:size()
+    if currentSize.w ~= terminalSize.w then
+      return terminalSize
+    end
+  end
+
+  return externalSize
 end
 
 function center(screen)
