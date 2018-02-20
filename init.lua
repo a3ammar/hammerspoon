@@ -317,7 +317,6 @@ hyperBind("L", function() focus("Terminal") end)
 hyperBind("U", function() focus("Dash") end)
 
 -- Misc binding
-hyperBind("delete", hs.caffeinate.startScreensaver)
 hs.hotkey.bind({}, "f20", hs.caffeinate.startScreensaver)
 
 -- Automaticy apply size and position for these apps
