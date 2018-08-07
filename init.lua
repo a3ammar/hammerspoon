@@ -157,6 +157,17 @@ function finder(screen)
   })
 end
 
+function devTools(screen)
+  local window = hs.window.focusedWindow():frame()
+  return hs.geometry({
+      x = screen.x + screen.w - 1320,
+      y = screen.y + 120,
+      w = 1200,
+      h = screen.h - 240,
+  })
+end
+
+
 function small(screen)
   local window = hs.window.focusedWindow():frame()
   return hs.geometry({
@@ -304,7 +315,8 @@ hyperBind("W", function() setCurrent(tall) end)
 hyperBind("C", function() setCurrent(center) end)
 hyperBind("V", function() setCurrent(hipsterCenter) end)
 hyperBind("F", function() setCurrent(finder) end)
-hyperBind("R", function() setCurrent(small) end)
+hyperBind("R", function() setCurrent(devTools) end)
+-- hyperBind("R", function() setCurrent(small) end)
 
 hyperBind("T", itunes)
 hyperBind("1", sendToMainScreen)
@@ -322,14 +334,14 @@ hs.hotkey.bind({}, "f20", hs.caffeinate.startScreensaver)
 -- Automaticy apply size and position for these apps
 local filter = hs.window.filter
 
-filter.new("Emacs"):subscribe(
-  hs.window.filter.windowCreated,
-  function(window, name, event)
-    local screen = window:screen():frame()
+-- filter.new("Emacs"):subscribe(
+--   hs.window.filter.windowCreated,
+--   function(window, name, event)
+--     local screen = window:screen():frame()
 
 
-    window:setFrame(right(screen))
-end)
+--     window:setFrame(right(screen))
+-- end)
 
 filter.new("Terminal"):subscribe(
   hs.window.filter.windowCreated,
