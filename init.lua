@@ -227,10 +227,10 @@ function focus(appName)
   end
 end
 
-function focusChrome()
+function focusFirefox()
   local focusedWindow = hs.window.focusedWindow()
-  local chrome = hs.application.find("Google")
-  local windows = chrome and chrome:allWindows()
+  local firefox = hs.application.find("Firefox Developer Edition")
+  local windows = firefox and firefox:allWindows()
   local activeWindows = {}
 
   for _, window in pairs(windows) do
@@ -323,7 +323,7 @@ hyperBind("1", sendToMainScreen)
 hyperBind("2", sendToTv)
 
 -- Focus binding
-hyperBind("J", focusChrome)
+hyperBind("J", focusFirefox)
 hyperBind("K", function() focus("Emacs") end)
 hyperBind("L", function() focus("Terminal") end)
 hyperBind("U", function() focus("Dash") end)
