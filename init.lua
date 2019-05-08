@@ -78,9 +78,9 @@ function middle(screen)
     })
   else
     size = hs.geometry({
-      x = screen.x + 100,
+      x = screen.x + 30,
       y = screen.y,
-      w = screen.w - 200,
+      w = screen.w - 60,
       h = screen.h,
   })
   end
