@@ -112,8 +112,8 @@ bind("1", function() hs.window:focusedWindow():centerOnScreen(hs.screen.allScree
 bind("2", function() hs.window:focusedWindow():centerOnScreen(hs.screen.allScreens()[2], true) end)
 
 -- Laptop layout ratios
-local rightRatio = 0.556
-local leftRatio  = 0.443
+local rightRatio = 0.4443
+local leftRatio  = 0.5556
 
 -- Restore layout history
 bind("z", function() windowHistory:restore() end)
@@ -167,7 +167,7 @@ bind("d", setFocusedWindow(function(screen, window, isExternal)
     }
   else
     return {
-      x = (screen.x + screen.w) * leftRatio,
+      x = screen.x + screen.w * leftRatio,
       y = screen.y,
       w = screen.w * rightRatio,
       h = screen.h,
