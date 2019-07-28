@@ -52,7 +52,7 @@ function setFocusedWindow(layoutfn)
     local window = hs.window.focusedWindow()
     local screen = window:screen()
     local isExternal = false
-    
+
     if screen:name() == "Thunderbolt Display" then
       isExternal = true
     end
@@ -273,7 +273,7 @@ local swapMeta = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e
     return false, {}
   end
 
-  -- Check if 
+  -- Ignore keys that are in ignoredKeys
   if hs.fnutils.contains(ignoredKeys, table.concat(toKey(event))) then
     return false, {}
   end
@@ -291,4 +291,3 @@ end)
 hs.window.filter.new("Terminal")
   :subscribe(hs.window.filter.windowFocused, function() swapMeta:start()end)
   :subscribe(hs.window.filter.windowUnfocused, function() swapMeta:stop() end)
-
