@@ -28,6 +28,18 @@ function windowHistory:restore()
   end
 end
 
+-- Remove window history of no longer existing windows
+function windowHistory:clean()
+  for id in pairs(self) do
+    if type(id) == "number" and hs.window.get(id) == nil then
+      self[id] = nil
+    end
+  end
+end
+
+-- Clean the window history every 5 minutes to avoid memory leaks
+hs.timer.doEvery(hs.timer.minutes(5), function() windowHistory:clean() end)
+
 
 -- setFocusedWindow set the current window frame according to the return value of
 -- `layoutfn`, which should be a function that takes three arguments:
