@@ -1,5 +1,6 @@
 -- General Hammerspoon configurations
 hs.window.animationDuration = 0.1
+hs.application.enableSpotlightForNameSearches(true)
 hs.hints.hintChars = { "J", "K", "L", ";", "A", "S", "D", "F", "H", "G" }
 
 
@@ -289,5 +290,5 @@ end)
 
 -- Attach the eventtap to the Terminal app only when it's focused
 hs.window.filter.new("Terminal")
-  :subscribe(hs.window.filter.windowFocused, function() swapMeta:start()end)
+  :subscribe(hs.window.filter.windowFocused, function() swapMeta:start() end)
   :subscribe(hs.window.filter.windowUnfocused, function() swapMeta:stop() end)
