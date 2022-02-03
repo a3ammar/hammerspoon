@@ -102,6 +102,7 @@ bind("j", focus("Google Chrome"))
 bind("k", focus("Emacs"))
 bind("l", focus("Terminal"))
 bind("u", focus("Dash"))
+bind("i", focus("Mattermost"))
 
 
 -- Focus a bindable application
@@ -109,7 +110,7 @@ local bindableFocus = nil
 -- Set the application to focus
 bind("8", function() bindableFocus = hs.window.focusedWindow() end)
 -- Focus the application
-bind("i", function()
+bind("o", function()
   if bindableFocus then
     bindableFocus:focus()
   end
