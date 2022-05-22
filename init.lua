@@ -267,6 +267,7 @@ local swapMeta = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(e
       { "cmd", "shift", "4" },
       { "cmd", "shift", "3" },
       { "cmd", "ctrl", "\\" },
+      { "ctrl", "cmd", "\\" },
     }, table.concat)
   local modifiers = event:getFlags()
 
