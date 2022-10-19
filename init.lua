@@ -41,25 +41,22 @@ end
 -- Clean the window history every 5 minutes to avoid memory leaks
 hs.timer.doEvery(hs.timer.minutes(5), function() windowHistory:clean() end)
 
-
+function isExternal()
+  return not hs.window.focusedWindow():screen():name():lower():find("built-in", 1, true)
+end
 -- setFocusedWindow set the current window frame according to the return value of
 -- `layoutfn`, which should be a function that takes three arguments:
 --   `screen`: The screen's frame
 --   `window`: The current window's frame
---   `isExternal`: Whether it's not on the built in display or not
+--   `isExternal`: Whether it's not on the built-in display or not
 function setFocusedWindow(layoutfn)
   -- Return a function so we could use it easily with `bind()`
   return function()
     local window = hs.window.focusedWindow()
     local screen = window:screen()
-    local isExternal = false
-
-    if screen:name() == "Thunderbolt Display" then
-      isExternal = true
-    end
 
     windowHistory:save()
-    window:setFrame(hs.geometry(layoutfn(screen:frame(), window:frame(), isExternal)))
+    window:setFrame(hs.geometry(layoutfn(screen:frame(), window:frame(), isExternal())))
   end
 end
 
@@ -122,8 +119,8 @@ hs.hotkey.bind({}, "f20", hs.caffeinate.startScreensaver)
 
 
 -- Sending windows to different monitors
-bind("1", function() hs.window:focusedWindow():centerOnScreen(hs.screen.allScreens()[1], true) end)
-bind("2", function() hs.window:focusedWindow():centerOnScreen(hs.screen.allScreens()[2], true) end)
+bind("1", function() hs.window.focusedWindow():centerOnScreen(hs.screen.allScreens()[1], true) end)
+bind("2", function() hs.window.focusedWindow():centerOnScreen(hs.screen.allScreens()[2], true) end)
 
 -- Laptop layout ratios
 local rightRatio = 0.4443
@@ -136,10 +133,10 @@ bind("z", function() windowHistory:restore() end)
 bind("a", setFocusedWindow(function(screen, window, isExternal)
   if isExternal then
     return {
-      x = screen.x + 20,
-      y = screen.y + 20,
-      w = 1100,
-      h = screen.h - 40,
+      x = screen.x,
+      y = screen.y,
+      w = 1400,
+      h = screen.h,
     }
   else
     return {
@@ -155,10 +152,10 @@ end))
 bind("s", setFocusedWindow(function(screen, window, isExternal)
   if isExternal then
     return {
-      x = screen.x + 20,
-      y = screen.y + 20,
-      w = screen.w - 40,
-      h = screen.h - 40,
+      x = screen.x + 500,
+      y = screen.y,
+      w = 2440,
+      h = screen.h,
     }
   else
     return {
@@ -174,10 +171,10 @@ end))
 bind("d", setFocusedWindow(function(screen, window, isExternal)
   if isExternal then
     return {
-      x = screen.x + screen.w - 1420,
-      y = screen.y + 20,
-      w = 1400,
-      h = screen.h - 40,
+      x = screen.x + screen.w - 1520,
+      y = screen.y,
+      w = 1520,
+      h = screen.h,
     }
   else
     return {
@@ -219,13 +216,13 @@ bind("f", setFocusedWindow(function(screen, window)
   }
 end))
 
--- Right middle window, suitable for DevTools
-bind("r", setFocusedWindow(function(screen)
+-- A termianl window
+bind("t", setFocusedWindow(function(screen)
   return {
-    x = screen.x + screen.w - 1320,
-    y = screen.y + 120,
-    w = 1200,
-    h = screen.h - 240,
+    x = screen.x + screen.w - 770,
+    y = screen.y,
+    w = 770,
+    h = screen.h,
   }
 end))
 
@@ -233,9 +230,9 @@ end))
 bind("w", setFocusedWindow(function(screen, window)
   return {
     x = window.x,
-    y = screen.y + 20,
+    y = screen.y,
     w = window.w,
-    h = screen.h - 40,
+    h = screen.h,
   }
 end))
 
