@@ -170,12 +170,21 @@ end))
 -- Right window
 bind("d", setFocusedWindow(function(screen, window, isExternal)
   if isExternal then
-    return {
-      x = screen.x + screen.w - 1520,
-      y = screen.y,
-      w = 1520,
-      h = screen.h,
-    }
+    if window.w == 1520 or window.w == 1522 then -- 1522 is a special case for Terminal
+      return {
+        x = screen.x + screen.w - 770,
+        y = screen.y,
+        w = 770,
+        h = screen.h
+      }
+    else
+      return {
+        x = screen.x + screen.w - 1520,
+        y = screen.y,
+        w = 1520,
+        h = screen.h,
+      }
+    end
   else
     return {
       x = screen.x + screen.w * leftRatio,
@@ -213,16 +222,6 @@ bind("f", setFocusedWindow(function(screen, window)
     y = window.y,
     h = 640,
     w = 600,
-  }
-end))
-
--- A termianl window
-bind("t", setFocusedWindow(function(screen)
-  return {
-    x = screen.x + screen.w - 770,
-    y = screen.y,
-    w = 770,
-    h = screen.h,
   }
 end))
 
