@@ -152,9 +152,9 @@ end))
 bind("s", setFocusedWindow(function(screen, window, isExternal)
   if isExternal then
     return {
-      x = screen.x + 500,
+      x = screen.x + 720,
       y = screen.y,
-      w = 2440,
+      w = 2000,
       h = screen.h,
     }
   else
