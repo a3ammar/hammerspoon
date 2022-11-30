@@ -99,7 +99,7 @@ bind("j", focus("Google Chrome"))
 bind("k", focus("Emacs"))
 bind("l", focus("Terminal"))
 bind("u", focus("Dash"))
-bind("i", focus("Mattermost"))
+bind("i", focus("Zulip"))
 
 
 -- Focus a bindable application
