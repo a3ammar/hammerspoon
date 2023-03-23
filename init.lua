@@ -95,7 +95,7 @@ bind("h", hs.hints.windowHints)
 
 
 -- Focus specific applications
-bind("j", focus("Google Chrome"))
+bind("j", focus("Firefox"))
 bind("k", focus("Emacs"))
 bind("l", focus("Terminal"))
 bind("u", focus("Dash"))
