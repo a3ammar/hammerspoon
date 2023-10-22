@@ -236,6 +236,25 @@ bind("w", setFocusedWindow(function(screen, window)
 end))
 
 
+-- Kagi Summerizer better position
+hs.window.filter.new("Firefox"):subscribe(
+  hs.window.filter.windowCreated,
+  function(window, name)
+    print(window:title())
+    if window:title() == "about:blank -" or window:title() == "Extension: (Kagi Search for Firefox) -" then
+      -- Most probably Kagi Summerizer
+      local screen = window:screen():frame()
+      print(screen)
+      window:setFrame(hs.geometry({
+        x=1415,
+        y=(screen.h - 1060) / 2,
+        w=600,
+        h=1060,
+      }))
+    end
+  end
+)
+
 -- Application specific configuration
 -- A helper function that converts an event to key code: { modifiers.., characters... }
 function toKey(event)
