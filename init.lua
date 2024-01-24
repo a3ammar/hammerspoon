@@ -240,11 +240,9 @@ end))
 hs.window.filter.new("Firefox"):subscribe(
   hs.window.filter.windowCreated,
   function(window, name)
-    print(window:title())
     if window:title() == "about:blank -" or window:title() == "Extension: (Kagi Search for Firefox) -" then
       -- Most probably Kagi Summerizer
       local screen = window:screen():frame()
-      print(screen)
       window:setFrame(hs.geometry({
         x=1415,
         y=(screen.h - 1060) / 2,
