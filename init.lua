@@ -55,8 +55,15 @@ function setFocusedWindow(layoutfn)
     local window = hs.window.focusedWindow()
     local screen = window:screen()
 
+    -- Fix an issue with FireFox movement
+    local axApp = hs.axuielement.applicationElement(window:application())
+    local wasEnhanced = axApp.AXEnhancedUserInterface
+    axApp.AXEnhancedUserInterface = false
+    -- Set window
     windowHistory:save()
     window:setFrame(hs.geometry(layoutfn(screen:frame(), window:frame(), isExternal())))
+    -- Restore enhancement
+    hs.timer.doAfter(hs.window.animationDuration * 2, function() axApp.AXEnhancedUserInterface = wasEnhanced end)
   end
 end
 
