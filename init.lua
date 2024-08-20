@@ -38,6 +38,49 @@ function windowHistory:clean()
   end
 end
 
+
+-- Focus History
+-- Remembers when I switch apps/windows so I can back/forward between them
+local FOCUS_HISTORY_MAX = 20
+local focusHistory = {}
+local focusPosition = 1
+local filterSub = nil
+
+function focusHistory:push(winID)
+  if #focusHistory > FOCUS_HISTORY_MAX then
+    table.remove(focusHistory, 1)
+  end
+  table.insert(focusHistory, winID)
+  focusPosition = #focusHistory
+end
+
+function focusHistoryBackward()
+  if focusPosition == 1 then
+    return
+  end
+  focusPosition = focusPosition - 1
+  filterSub:pause()
+  hs.window.get(focusHistory[focusPosition]):focus()
+  -- Resume after a delay so that the filter won't trigger focusHistory:push
+  hs.timer.doAfter(1, function() filterSub:resume() end)
+end
+
+function focusHistoryForward()
+  if focusPosition + 1 > #focusHistory then
+    return
+  end
+  focusPosition = focusPosition + 1
+  filterSub:pause()
+  hs.window.get(focusHistory[focusPosition]):focus()
+  -- Resume after a delay so that the filter won't trigger focusHistory:push
+  hs.timer.doAfter(1, function() filterSub:resume() end)
+end
+
+filterSub = hs.window.filter.default:subscribe(
+  hs.window.filter.windowFocused,
+  function (window) focusHistory:push(window:id()) end
+)
+
 -- Clean the window history every 5 minutes to avoid memory leaks
 hs.timer.doEvery(hs.timer.minutes(5), function() windowHistory:clean() end)
 
@@ -96,6 +139,10 @@ function bind(key, fn)
 end
 
 
+
+-- Focus History
+bind("[", focusHistoryBackward)
+bind("]", focusHistoryForward)
 
 -- Hammersppon hints
 bind("h", hs.hints.windowHints)
