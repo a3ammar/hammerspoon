@@ -42,15 +42,19 @@ end
 -- Focus History
 -- Remembers when I switch apps/windows so I can back/forward between them
 local FOCUS_HISTORY_MAX = 20
-local focusHistory = {}
+local focusHistory = {} -- First element is oldest, last newest
 local focusPosition = 1
 local filterSub = nil
 
-function focusHistory:push(winID)
+function focusHistoryPush(window)
+  local id = window:id()
+  if hs.fnutils.contains(focusHistory, id) then
+    return
+  end
   if #focusHistory > FOCUS_HISTORY_MAX then
     table.remove(focusHistory, 1)
   end
-  table.insert(focusHistory, winID)
+  table.insert(focusHistory, id)
   focusPosition = #focusHistory
 end
 
@@ -59,8 +63,14 @@ function focusHistoryBackward()
     return
   end
   focusPosition = focusPosition - 1
+  local win = hs.window.get(focusHistory[focusPosition])
+  if not win then
+    table.remove(focusHistory, focusPosition)
+    focusHistoryBackward()
+    return
+  end
   filterSub:pause()
-  hs.window.get(focusHistory[focusPosition]):focus()
+  win:focus()
   -- Resume after a delay so that the filter won't trigger focusHistory:push
   hs.timer.doAfter(1, function() filterSub:resume() end)
 end
@@ -70,16 +80,19 @@ function focusHistoryForward()
     return
   end
   focusPosition = focusPosition + 1
+  local win = hs.window.get(focusHistory[focusPosition])
+  if not win then
+    table.remove(focusHistory, focusPosition)
+    focusHistoryForward()
+    return
+  end
   filterSub:pause()
   hs.window.get(focusHistory[focusPosition]):focus()
   -- Resume after a delay so that the filter won't trigger focusHistory:push
   hs.timer.doAfter(1, function() filterSub:resume() end)
 end
 
-filterSub = hs.window.filter.default:subscribe(
-  hs.window.filter.windowFocused,
-  function (window) focusHistory:push(window:id()) end
-)
+filterSub = hs.window.filter.default:subscribe(hs.window.filter.windowFocused, focusHistoryPush)
 
 -- Clean the window history every 5 minutes to avoid memory leaks
 hs.timer.doEvery(hs.timer.minutes(5), function() windowHistory:clean() end)
