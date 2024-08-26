@@ -48,7 +48,10 @@ local filterSub = nil
 
 function focusHistoryPush(window)
   local id = window:id()
-  if hs.fnutils.contains(focusHistory, id) then
+  local idx = hs.fnutils.indexOf(focusHistory, function(ele) return ele == id end)
+  if idx then
+    table.remove(focusHistory, idx)
+    table.insert(focusHistory, id)
     return
   end
   if #focusHistory > FOCUS_HISTORY_MAX then
