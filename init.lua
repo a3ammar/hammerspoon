@@ -48,7 +48,7 @@ local filterSub = nil
 
 function focusHistoryPush(window)
   local id = window:id()
-  local idx = hs.fnutils.indexOf(focusHistory, function(ele) return ele == id end)
+  local idx = hs.fnutils.indexOf(focusHistory, id)
   if idx then
     table.remove(focusHistory, idx)
     table.insert(focusHistory, id)
