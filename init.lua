@@ -239,19 +239,21 @@ end))
 
 -- Right window
 bind("d", setFocusedWindow(function(screen, window, isExternal)
+  local large = 2040
+  local small = 770
   if isExternal then
-    if window.w == 1520 or window.w == 1522 then -- 1522 is a special case for Terminal
+    if window.w == large or window.w == large - 2 then -- (- 2) for terminal, it has weird sizing
       return {
-        x = screen.x + screen.w - 770,
+        x = screen.x + screen.w - small,
         y = screen.y,
-        w = 770,
+        w = small,
         h = screen.h
       }
     else
       return {
-        x = screen.x + screen.w - 1520,
+        x = screen.x + screen.w - large,
         y = screen.y,
-        w = 1520,
+        w = large,
         h = screen.h,
       }
     end
