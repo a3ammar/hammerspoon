@@ -49,7 +49,16 @@ local filterSub = nil
 function focusHistoryPush(window)
   local id = window:id()
   local idx = hs.fnutils.indexOf(focusHistory, id)
+  -- Handle when we select a window that exists in history
   if idx then
+    if focusPosition ~= #focusHistory then
+      -- If we moved back in history and selected a window move the current window to be
+      -- the most recent one
+      local currentWindowID = table.remove(focusHistory, focusPosition)
+      table.insert(focusHistory, currentWindowID)
+      focusPosition = #focusHistory
+    end
+    -- Move the existing window to be to most recent one
     table.remove(focusHistory, idx)
     table.insert(focusHistory, id)
     return
