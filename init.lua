@@ -251,7 +251,7 @@ bind("d", setFocusedWindow(function(screen, window, isExternal)
   local large = 2040
   local small = 770
   if isExternal then
-    if window.w == large or window.w == large - 2 then -- (- 2) for terminal, it has weird sizing
+    if window.w == large or window.w == large + 2 then -- (+ 2) for terminal, it has weird sizing
       return {
         x = screen.x + screen.w - small,
         y = screen.y,
@@ -347,44 +347,44 @@ function toKey(event)
 end
 
 -- Swap meta and alt keys in Terminal.app
-local swapMeta = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
-  -- Ignore those keys when swaping the meta
-  local ignoredKeys = hs.fnutils.map({
-      { "cmd", "tab" },
-      { "cmd", "space" },
-      { "alt", "space" },
-      { "cmd", "q" },
-      { "cmd", "c" },
-      { "cmd", "alt", "c" },
-      { "cmd", "shift", "c" },
-      { "cmd", "," },
-      { "cmd", "shift", "4" },
-      { "cmd", "shift", "3" },
-      { "cmd", "ctrl", "\\" },
-      { "ctrl", "cmd", "\\" },
-    }, table.concat)
-  local modifiers = event:getFlags()
+-- local swapMeta = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
+--   -- Ignore those keys when swaping the meta
+--   local ignoredKeys = hs.fnutils.map({
+--       { "cmd", "tab" },
+--       { "cmd", "space" },
+--       { "alt", "space" },
+--       { "cmd", "q" },
+--       { "cmd", "c" },
+--       { "cmd", "alt", "c" },
+--       { "cmd", "shift", "c" },
+--       { "cmd", "," },
+--       { "cmd", "shift", "4" },
+--       { "cmd", "shift", "3" },
+--       { "cmd", "ctrl", "\\" },
+--       { "ctrl", "cmd", "\\" },
+--     }, table.concat)
+--   local modifiers = event:getFlags()
 
-  -- Ignore hyper key presses
-  if modifiers.cmd and modifiers.alt and modifiers.ctrl and modifiers.shift then
-    return false, {}
-  end
+--   -- Ignore hyper key presses
+--   if modifiers.cmd and modifiers.alt and modifiers.ctrl and modifiers.shift then
+--     return false, {}
+--   end
 
-  -- Ignore keys that are in ignoredKeys
-  if hs.fnutils.contains(ignoredKeys, table.concat(toKey(event))) then
-    return false, {}
-  end
+--   -- Ignore keys that are in ignoredKeys
+--   if hs.fnutils.contains(ignoredKeys, table.concat(toKey(event))) then
+--     return false, {}
+--   end
 
-  if modifiers.alt then
-    return true, { event:setFlags({ cmd = true, alt = nil }) }
-  end
+--   if modifiers.alt then
+--     return true, { event:setFlags({ cmd = true, alt = nil }) }
+--   end
 
-  if modifiers.cmd then
-    return true, { event:setFlags({ cmd = nil, alt = true }) }
-  end
-end)
+--   if modifiers.cmd then
+--     return true, { event:setFlags({ cmd = nil, alt = true }) }
+--   end
+-- end)
 
 -- Attach the eventtap to the Terminal app only when it's focused
-hs.window.filter.new("Terminal")
-  :subscribe(hs.window.filter.windowFocused, function() swapMeta:start() end)
-  :subscribe(hs.window.filter.windowUnfocused, function() swapMeta:stop() end)
+-- hs.window.filter.new("Terminal")
+--   :subscribe(hs.window.filter.windowFocused, function() swapMeta:start() end)
+--   :subscribe(hs.window.filter.windowUnfocused, function() swapMeta:stop() end)
